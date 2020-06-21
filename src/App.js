@@ -13,14 +13,7 @@ export default function App() {
 		});
 	}, []);
 
-	async function handleDeleteRepository(id) {
-		await api.delete(`repositories/${id}`);
-
-		const newRepository = repositories.filter(
-			repository => repository.id !== id
-		);
-		setRepositories(newRepository);
-	}
+	
 
 	async function handleLikeRepository(id) {
 		await api.post(`repositories/${id}/like`).then(response => {
@@ -56,17 +49,7 @@ export default function App() {
 						return (
 							<>
 							<View style={styles.repositoryContainer}>
-								<View style={styles.header}>
-									<Text style={styles.repository}>{repository.title}</Text>
-
-									<TouchableOpacity
-										style={styles.buttonDelete}
-										activeOpacity={0.6}
-										onPress={() => handleDeleteRepository(repository.id)}
-									>
-										<Text style={styles.buttonDeleteText}>X</Text>
-									</TouchableOpacity>
-								</View>
+								
 
 								<View style={styles.techsContainer}>
 									{repository.techs.map(tech => (
