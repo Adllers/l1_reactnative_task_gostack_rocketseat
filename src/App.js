@@ -18,26 +18,15 @@ export default function App() {
 	async function handleLikeRepository(id) {
 		await api.post(`repositories/${id}/like`).then(response => {
 			const repositoryLiked = response.data;
-			const repositoryLikedIndex = repositories.findIndex(
+			const indexRepositoryLiked = repositories.findIndex(
 				repository => repository.id === id
 			);
-			repositories[repositoryLikedIndex] = repositoryLiked;
+			repositories[indexRepositoryLiked] = repositoryLiked;
 			setRepositories([...repositories]);
 		});
 	}
 
-	async function handleAddProject() {
-		const response = await api.post('/repositories', {
-			title: `Repository: #${Date.now()}`,
-			url: 'http://...',
-			techs: ['NodeJS'],
-		});
-
-		const newRepository = response.data;
-
-		setRepositories([...repositories, newRepository]);
-	}
-
+	
 	return (
 		<>
 			<StatusBar barStyle='light-content' backgroundColor='#7159c1' />
@@ -65,7 +54,7 @@ export default function App() {
 											// Remember to replace "1" below with repository ID: {`repository-likes-${repository.id}`}
 											testID={`repository-likes-${repository.id}`}
 									>
-										{`${repository.likes} likes`}
+										{`${repository.likes} curtidas`}
 									</Text>
 								</View>
 
@@ -83,13 +72,7 @@ export default function App() {
 						);
 					}}
 				/>
-				<TouchableOpacity
-					style={styles.buttonAdd}
-					activeOpacity={0.6}
-					onPress={handleAddProject}
-				>
-					<Text style={styles.buttonAddText}>Adicionar projeto</Text>
-				</TouchableOpacity>
+				
 			</SafeAreaView>
 		</>
 	);
